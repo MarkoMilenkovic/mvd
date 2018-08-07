@@ -19,16 +19,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@Path("private/state")
+@RequestMapping(value = "private/state")
 public class StateEndpoint {
 
     @Autowired
     private StateService stateService;
 
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Responses getStateById(@PathParam("id") long id) {
+    @GetMapping(value = "{id}", produces = "application/json")
+    public Responses getStateById(@PathVariable("id") long id) {
         Optional<State> stateOptional = stateService.getById(id);
         if (stateOptional.isPresent()) {
             State state = stateOptional.get();

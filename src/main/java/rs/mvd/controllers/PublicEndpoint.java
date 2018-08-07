@@ -19,29 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@Path("/public")
+@RequestMapping("/public")
 public class PublicEndpoint {
 
     @Autowired
     private RestService restService;
 
-    @GET
-    @Path("ok")
-    @Produces(MediaType.APPLICATION_JSON)
+    @GetMapping(value = "ok", produces = "application/json")
     public Responses ok() {
         return ResponseFactory.ok("Public Endpoint ok!");
     }
 
-    @GET
-    @Path("notOk")
-    @Produces(MediaType.APPLICATION_JSON)
+    @GetMapping(value = "notOk", produces = "application/json")
     public Responses notOk() {
         throw new BadRequestException("radi");
     }
 
-    @GET
-    @Path("ex")
-    @Produces(MediaType.APPLICATION_JSON)
+    @GetMapping(value = "ex", produces = "application/json")
     //namerno zelim da dobijem exception da bih video kakav ce biti response
     public Responses ex() {
         List<String> l = new ArrayList<>();
@@ -51,18 +45,15 @@ public class PublicEndpoint {
     }
 
     //ZAKOMENTARISANE STVARI JER IMAM SAMO JEDAN REALM, KADA BIH IMAO VISE I SLAO KROZ PATH ONDA KORISTITI ZAKOMENTARISANO
-    @POST
-    @Path("login") // "/{realmName}/login"
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Responses getTokenForUser(UsernamePasswordModel usernamePasswordModel/*,
+    @PostMapping(value = "login" , produces = "application/json", consumes = "application/json")
+    public Responses getTokenForUser(@RequestBody UsernamePasswordModel usernamePasswordModel/*,
                                           @PathVariable("realmName") String realmName*/) throws IOException {
 
         try (CloseableHttpResponse response = restService.sendPostRequestForm(/*ServiceUrlConstants.TOKEN_PATH,*/
                 restService.createFormLogin(usernamePasswordModel)/*, realmName*/)) {
 
             if (response.getStatusLine().getStatusCode() == 401) {
-                return ResponseFactory.badRequest("Bad credentials");
+                throw new BadRequestException("Bad credentials");
             }
             String json = EntityUtils.toString(response.getEntity(), "UTF-8");
             return ResponseFactory.ok(json);

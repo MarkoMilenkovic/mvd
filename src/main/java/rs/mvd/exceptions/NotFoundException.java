@@ -1,10 +1,8 @@
 package rs.mvd.exceptions;
 
-import javax.ws.rs.core.Response;
-
-public class NotFoundException extends AbstractException {
+public class NotFoundException extends RuntimeException {
 
     public NotFoundException(String message) {
-        super(message, Response.Status.NOT_FOUND.getStatusCode());
+        super(message);
     }
 }
