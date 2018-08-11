@@ -8,6 +8,7 @@ import rs.mvd.domain.Tenant;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -35,6 +36,11 @@ public class TenantRepository {
     public void setSchema(String schemaName) {
         em.createNativeQuery("use " + schemaName)
                 .executeUpdate();
+    }
+
+    public List<Tenant> getAllTenants(){
+        return em.createQuery("select t from Tenant t", Tenant.class)
+                .getResultList();
     }
 
 }
