@@ -1,6 +1,8 @@
 package rs.mvd.domain;
 
 
+import rs.mvd.domain.listeners.StateListener;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "state")
+@EntityListeners(StateListener.class)
 public class State implements Serializable {
 
     private static final long serialVersionUID = 1L;
