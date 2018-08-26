@@ -12,6 +12,7 @@ import rs.mvd.domain.UsernamePasswordModel;
 import rs.mvd.response.Responses;
 import rs.mvd.services.RestService;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class PublicEndpoint {
     @Path("login") // "/{realmName}/login"
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Responses getTokenForUser(UsernamePasswordModel usernamePasswordModel/*,
+    public Responses getTokenForUser(@Valid UsernamePasswordModel usernamePasswordModel/*,
                                           @PathVariable("realmName") String realmName*/) throws IOException {
 
         try (CloseableHttpResponse response = restService.sendPostRequestForm(/*ServiceUrlConstants.TOKEN_PATH,*/
