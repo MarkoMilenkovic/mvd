@@ -1,7 +1,12 @@
 package rs.mvd.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class UsernamePasswordModel {
 
+    @Size(min = 3, max = 10)
+    @NotNull
     private String username;
     private String password;
 
@@ -9,7 +14,6 @@ public class UsernamePasswordModel {
     }
 
     public UsernamePasswordModel(String username, String password) {
-        super();
         this.username = username;
         this.password = password;
     }

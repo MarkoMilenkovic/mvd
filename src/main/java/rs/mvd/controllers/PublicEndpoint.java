@@ -12,8 +12,7 @@ import rs.mvd.domain.UsernamePasswordModel;
 import rs.mvd.response.Responses;
 import rs.mvd.services.RestService;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,7 @@ public class PublicEndpoint {
 
     //ZAKOMENTARISANE STVARI JER IMAM SAMO JEDAN REALM, KADA BIH IMAO VISE I SLAO KROZ PATH ONDA KORISTITI ZAKOMENTARISANO
     @PostMapping(value = "login" , produces = "application/json", consumes = "application/json")
-    public Responses getTokenForUser(@RequestBody UsernamePasswordModel usernamePasswordModel/*,
+    public Responses getTokenForUser(@RequestBody @Valid UsernamePasswordModel usernamePasswordModel/*,
                                           @PathVariable("realmName") String realmName*/) throws IOException {
 
         try (CloseableHttpResponse response = restService.sendPostRequestForm(/*ServiceUrlConstants.TOKEN_PATH,*/
