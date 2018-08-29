@@ -2,6 +2,7 @@ package rs.mvd.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import rs.mvd.annotations.Reporting;
 import rs.mvd.domain.State;
 import rs.mvd.exceptions.BadRequestException;
 import rs.mvd.factories.ResponseFactory;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "private/state")
+@Reporting
 public class StateEndpoint {
 
     @Autowired

@@ -6,6 +6,7 @@ import org.apache.http.util.EntityUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import rs.mvd.annotations.Reporting;
 import rs.mvd.exceptions.BadRequestException;
 import rs.mvd.factories.ResponseFactory;
 import rs.mvd.domain.UsernamePasswordModel;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/public")
+@Reporting
 public class PublicEndpoint {
 
     @Autowired
