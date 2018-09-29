@@ -10,8 +10,10 @@ import rs.mvd.exceptions.BadRequestException;
 import rs.mvd.factories.ResponseFactory;
 import rs.mvd.domain.UsernamePasswordModel;
 import rs.mvd.response.Responses;
+import rs.mvd.services.EmailService;
 import rs.mvd.services.RestService;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,12 +27,22 @@ public class PublicEndpoint {
 
     @Autowired
     private RestService restService;
+    @Autowired
+    private EmailService emailService;
 
     @GET
     @Path("ok")
     @Produces(MediaType.APPLICATION_JSON)
     public Responses ok() {
         return ResponseFactory.ok("Public Endpoint ok!");
+    }
+
+    @GET
+    @Path("email")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Responses sendMail() throws MessagingException {
+        emailService.sendMail("marko.milenkovic@htecgroup.com");
+        return ResponseFactory.ok("Email sent!");
     }
 
     @GET
