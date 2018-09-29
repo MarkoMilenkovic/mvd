@@ -11,8 +11,10 @@ import rs.mvd.exceptions.BadRequestException;
 import rs.mvd.factories.ResponseFactory;
 import rs.mvd.domain.UsernamePasswordModel;
 import rs.mvd.response.Responses;
+import rs.mvd.services.EmailService;
 import rs.mvd.services.RestService;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,10 +27,18 @@ public class PublicEndpoint {
 
     @Autowired
     private RestService restService;
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping(value = "ok", produces = "application/json")
     public Responses ok() {
         return ResponseFactory.ok("Public Endpoint ok!");
+    }
+
+    @GetMapping(value = "mail", produces = "application/json")
+    public Responses sendEmail() throws MessagingException {
+        emailService.sendMail("marko.milenkovic@htecgroup.com");
+        return ResponseFactory.ok("Email sent!");
     }
 
     @GetMapping(value = "notOk", produces = "application/json")
