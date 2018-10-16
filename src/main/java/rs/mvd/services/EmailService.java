@@ -17,7 +17,7 @@ import javax.mail.internet.InternetAddress;
 public class EmailService {
 
     private final String username = "marko12993@gmail.com";
-    private final String password = "********";
+    private final String password = "supermario123";
     private Properties properties;
 
     private Properties createProperties() {
@@ -40,25 +40,25 @@ public class EmailService {
         });
     }
 
-    private void createAndSendMessage(Session session, String reciever) throws MessagingException {
+    private void createAndSendMessage(Session session, String reciever, String content, String title) throws MessagingException {
         SMTPMessage message = new SMTPMessage(session);
         message.setFrom(new InternetAddress(username));
         message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(reciever));
 
-        message.setSubject("Testing Subject");
+        message.setSubject(title);
 //        message.setText("Testing mail!");
-        message.setContent("<h1>Hello</h1>",  "text/html");
+        message.setContent(content,  "text/html");
         message.setNotifyOptions(SMTPMessage.NOTIFY_SUCCESS);
         Transport.send(message);
     }
 
-    public void sendMail(String reciever) throws MessagingException {
+    public void sendMail(String reciever, String content, String title) throws MessagingException {
         if (properties == null) {
             properties = createProperties();
         }
         Session session = createSession(properties);
-        createAndSendMessage(session, reciever);
+        createAndSendMessage(session, reciever, content, title);
     }
 
 
