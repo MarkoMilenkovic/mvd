@@ -2,6 +2,7 @@ package rs.mvd.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "city")
@@ -20,6 +21,11 @@ public class City implements Serializable {
     private State state;
 
     public City() {
+    }
+
+    public City(Long id,String name) {
+        this.name = name;
+        this.id = id;
     }
 
     public City(String name, State state) {
