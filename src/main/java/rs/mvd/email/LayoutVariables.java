@@ -1,18 +1,19 @@
-package rs.mvd.services;
+package rs.mvd.email;
 
-public enum EmailPropertiesEnum {
+public enum LayoutVariables {
 
     PICTURE_URL("picture_url"),
     TITLE("title"),
     BUTTON_TEXT("button_text"),
     TENANT_NAME("tenantName"),
-    FULL_TENANT_NAME("fullTenatName"),
     FULL_TENANT_URL("fullTenantUrl"),
-    BODY("body");
+    BODY("body"),
+    DISPLAY_LINK("displayLink"),
+    LINK("link");
 
     private String value;
 
-    EmailPropertiesEnum(String value) {
+    LayoutVariables(String value) {
         this.value = value;
     }
 
@@ -20,7 +21,4 @@ public enum EmailPropertiesEnum {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

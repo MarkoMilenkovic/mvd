@@ -1,4 +1,4 @@
-package rs.mvd.services;
+package rs.mvd.email;
 
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import javax.mail.internet.InternetAddress;
 public class EmailService {
 
     private final String username = "marko12993@gmail.com";
-    private final String password = "supermario123";
+    private final String password = "*********";
     private Properties properties;
 
     private Properties createProperties() {
