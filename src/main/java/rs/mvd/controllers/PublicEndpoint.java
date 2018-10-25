@@ -4,16 +4,22 @@ import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import rs.mvd.exceptions.BadRequestException;
 import rs.mvd.factories.ResponseFactory;
 import rs.mvd.domain.UsernamePasswordModel;
 import rs.mvd.response.Responses;
 import rs.mvd.services.RestService;
+
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +31,11 @@ public class PublicEndpoint {
     private RestService restService;
 
     @GET
-    @Path("ok")
+    @Path("ok/{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Responses ok() {
+    public Responses ok(@PathParam("token") String token) {
+        token = "bearer " + token;
+        restService.sendTopicMessage(token);
         return ResponseFactory.ok("Public Endpoint ok!");
     }
 
