@@ -1,7 +1,6 @@
 package rs.mvd.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import rs.mvd.domain.listeners.StateListener;
 
 import javax.persistence.*;
@@ -23,7 +22,6 @@ public class State implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<City> cities;
 
     public State() {

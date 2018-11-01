@@ -1,18 +1,9 @@
 package rs.mvd;
 
-import org.flywaydb.core.Flyway;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
-import rs.mvd.domain.Tenant;
-import rs.mvd.repository.TenantRepository;
-
-import javax.annotation.PostConstruct;
-import java.util.List;
 
 @SpringBootApplication
-@EnableCaching
 public class MvdApplication {
 
 //    @Autowired
