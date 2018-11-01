@@ -1,5 +1,7 @@
 package rs.mvd.repository;
 
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import rs.mvd.domain.State;
@@ -17,11 +19,14 @@ public class StateRepository {//} extends CrudRepository<State, Integer> {
     @PersistenceContext
     private EntityManager em;
 
-    public void insert(State state) {
+    @CachePut(value = "states", key = "#state.id")
+    public State insert(State state) {
         em.persist(state);
         em.flush();
+        return state;
     }
 
+    @Cacheable(value = "states", key = "#id")
     public Optional<State> getById(long id) {
         try {
             State state = em.createQuery("SELECT s FROM State s where s.id = :id", State.class)

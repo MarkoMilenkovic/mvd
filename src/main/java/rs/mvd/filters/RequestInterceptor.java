@@ -35,9 +35,9 @@ public class RequestInterceptor implements HandlerInterceptor {
     }
 
     private void validateTenant(String tenantName) {
-        if (tenantName == null || tenantName.isEmpty() || !tenantRepository.getByName(tenantName).isPresent()) {
-            throw new BadRequestException("Tenant does not exists!");
-        }
+//        if (tenantName == null || tenantName.isEmpty() || !tenantRepository.getByName(tenantName).isPresent()) {
+//            throw new BadRequestException("Tenant does not exists!");
+//        }
         tenantRepository.setSchema(tenantName);
     }
 }
