@@ -34,7 +34,7 @@ public class RestService {
     private final String devPublicOkUrl = "https://apinew.dev-9mentors.com/9mentors/public/ok";
     private final String devTopicForMSg = "https://apinew.dev-9mentors.com/9mentors/private/chat";
 
-
+    private final String stageTopicForMSg = "https://api.staging-9mcollab.com/9mentors/private/chat";
 
     public CloseableHttpResponse sendPostRequestForm(/*String path,*/ UrlEncodedFormEntity form/*, String realmName*/) throws IOException {
         //http://localhost:8080/auth/realms/MvdRealm/protocol/openid-connect/token
@@ -76,14 +76,15 @@ public class RestService {
 
     public void sendTopicMessage(String token) {
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 200; i++) {
+            int finalI = i;
             new Thread(() -> {
                 try {
                     HttpClient httpclient = HttpClients.createDefault();
-                    HttpPost httppost = new HttpPost(devTopicForMSg);
-                    StringEntity stringEntity = new StringEntity("{\"message\": \"ljudiiiiiii, ala smrdi ovde!\", \"topicId\": 2362, \"files\": []}");
+                    HttpPost httppost = new HttpPost(stageTopicForMSg);
+                    StringEntity stringEntity = new StringEntity("{\"message\": \"poruka: "+finalI+"\", \"topicId\": 4, \"files\": []}");
                     httppost.setEntity(stringEntity);
-                    httppost.setHeader("x-tenant-name", "9mentors");
+                    httppost.setHeader("x-tenant-name", "code4money");
                     httppost.setHeader("authorization", token);
                     httppost.setHeader("accept", "application/json, text/plain, */*");
                     httppost.setHeader("Content-Type", "application/json; charset=utf8");
