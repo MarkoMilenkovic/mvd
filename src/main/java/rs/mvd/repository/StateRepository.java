@@ -1,5 +1,6 @@
 package rs.mvd.repository;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -38,6 +39,13 @@ public class StateRepository {//} extends CrudRepository<State, Integer> {
             System.out.println(e.getMessage());
             return Optional.empty();
         }
+    }
+
+    @CacheEvict(value = "states", key = "#id")
+    public void delete(int id){
+        em.createNativeQuery("delete from state where id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     public Optional<State> getOneByName(String stateName) {

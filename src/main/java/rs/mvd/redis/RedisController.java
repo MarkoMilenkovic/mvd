@@ -32,6 +32,7 @@ public class RedisController {
 
     @DeleteMapping("{id}")
     public Responses deleteStateById(@PathVariable("id") int id){
+        stateService.delete(id);
         return ResponseFactory.ok("State deleted successfully!");
     }
 }
